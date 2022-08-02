@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HRMS|<%= title %></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css"/>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/stylesheets/simple-sidebar.css" rel="stylesheet">
+    <link href="/stylesheets/bootstrap-select.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+
+</head>
+<body>
+    <%- include('layouts/navbar'); -%>
+<div id="wrapper">
+    <!-- Sidebar -->
+    <%- include('layouts/sidebar'); -%>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid xyz">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Tạo hồ sơ mới</h1>
+                    <div id="menu1" style="height:717px; overflow: auto;">
+                        <form action="/admin/store-project" id="form1" method="post">
+                            <div class="form-group">
+                                <label for="place">Xã/phường:</label>
+                                <input type="text" required="required" class="form-control" id="place" name="place">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Tên:</label>
+                                <input type="text" required="required" class="form-control" id="name" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="content">Nội dung:</label>
+                                <textarea required="required" class="form-control" style="resize: none" id="content"
+                                          name="content" rows="5" cols="60"></textarea></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="receivedDate">Ngày đo:</label>
+                                <input type="date" required="required" class="form-control" id="receivedDate"
+                                       name="receivedDate">
+                                <label id="error" style="color:red;"></label>
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneNumber">Số điện thoại:</label>
+                                <input type="number" pattern="^[0-9]" title='Only Number' class="form-control" required="required" id="phoneNumber" name="phoneNumber">
+                            </div>
+                            <div class="form-group">
+                                <label for="numPage">Số tờ/thửa:</label>
+                                <input type="number" pattern="^[0-9]" title='Only Number' min="1" step="1"  class="form-control" required="required" id="numPage" name="numPage">
+                            </div>
+                            <div class="form-group">
+                                <label for="currentSquare">Diện tích hiện trạng:</label>
+                                <input type="text" required="required" class="form-control" id="currentSquare" name="currentSquare">
+                            </div>
+                            <div class="form-group">
+                                <label for="cerNumber">Số ngày phát hành GCN:</label>
+                                <input type="text" required="required" class="form-control" id="cerNumber" name="cerNumber">
+                            </div>
+                            <div class="form-group">
+                                <label for="mainHandler">Xử lý chính:</label>
+                                <select class="form-control" id="mainHandler" name="mainHandler">
+                                    <% user.forEach(function(item){ %>
+                                    <option value="<%= item.name %>"><%= item.name %></option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="subHandler">Xử lý nội nghiệp:</label>
+                                <select class="form-control" id="subHandler" name="subHandler">
+                                    <% user.forEach(function(item){ %>
+                                        <option value="<%= item.name %>"><%= item.name %></option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="dateMeasure">Ngày đo:</label>
+                                <input type="date" required="required" class="form-control" id="dateMeasure"
+                                       name="dateMeasure">
+                                <label id="error" style="color:red;"></label>
+                            </div>
+                            <div class="form-group">
+                                <label for="dateSub">Ngày trình thẩm định:</label>
+                                <input type="date" required="required" class="form-control" id="dateSub"
+                                       name="dateSub">
+                                <label id="error" style="color:red;"></label>
+                            </div>
+                            <div class="form-group">
+                                <label for="dateApp">Ngày thẩm định:</label>
+                                <input type="date" required="required" class="form-control" id="dateApp"
+                                       name="dateApp">
+                                <label id="error" style="color:red;"></label>
+                            </div>
+                            <div class="form-group">
+                                <label for="officer">Cán bộ thẩm định:</label>
+                                <input type="text" required="required" class="form-control" id="officer" name="officer">
+                            </div>
+                            <div class="form-group">
+                                <label for="note">Ghi chú:</label>
+                                <select class="form-control" id="note" name="note">
+                                    <option value="Not measure yet">Chưa đo</option>
+                                    <option value="Measured and in progress">Đã đo, đang xử lý</option>
+                                    <option value="Appraisal is in progress">Đang trình thẩm định</option>
+                                    <option value="Appraised">Đã thẩm định</option>
+                                    <option value="Signing in progress">Đang trình ký</option>
+                                    <option value="Signed">Đã ký</option>
+                                    <option value="File backed">hs trả</option>
+                                </select>
+                            </div>
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button type="button" onclick="history.go(-1);" class="btn btn-default">Huỷ</button>
+                            <button type="submit" class="btn btn-default">Thêm mới</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.js" charset="UTF-8"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js" charset="UTF-8"></script>
+<script src="/javascripts/sidebar_menu.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#form1').on('submit', function () {
+            var startDate = new Date($('#start_date').val());
+            var endDate = new Date($('#end_date').val());
+            if (startDate > endDate) {
+                $('#error').text("    Start Date must be smaller than End Date!")
+                return false;
+            }
+            return true;
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var box1height = $('#menu1').height();
+        // Set box2 height equal to box1
+        $('#sidebar-wrapper').height(box1height * 1.22);
+
+        for (i = new Date().getFullYear(); i > 1950; i--) {
+
+            $('#year').append($('<option />').val(i).html(i));
+        }
+
+    });
+</script>
+</body>
+
+<div id="myModal2" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <form method="post" action="/admin/mark-attendance">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Mark Attendance</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to mark attendance.</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-default">Yes</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form method="post" action="/admin/view-attendance">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select Month/Year</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="Month">Month:</label>
+                        <select class="form-control" id="month" name="month">
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Year:</label>
+                        <select class="form-control" id="year" name="year">
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-default">View</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+</html>
